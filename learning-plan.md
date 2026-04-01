@@ -2,9 +2,18 @@
 
 Source: https://jobs.smartrecruiters.com/InPost/744000115650127-senior-java-engineer-m-f-n-
 
+## Priority Tiers
+
+| Tier | Label | Rationale |
+|------|-------|-----------|
+| **P1** | Must know cold | Core stack — will definitely be asked |
+| **P2** | High priority | Senior-level depth expected for payment domain |
+| **P3** | Medium priority | Likely follow-up or system design questions |
+| **P4** | Lower priority | Good to know, less likely to be tested deeply |
+
 ---
 
-## Core Java
+## P1 — Core Java
 
 - [ ] What are the differences between `HashMap` and `ConcurrentHashMap`? When would you use each?
 - [ ] How does the JVM handle memory? Explain heap, stack, metaspace, and GC generations.
@@ -14,7 +23,7 @@ Source: https://jobs.smartrecruiters.com/InPost/744000115650127-senior-java-engi
 
 ---
 
-## Spring Boot / Microservices
+## P1 — Spring Boot / Microservices
 
 - [ ] How does Spring Boot auto-configuration work under the hood?
 - [ ] What's the difference between `@Component`, `@Service`, `@Repository` — is it just semantic?
@@ -26,7 +35,7 @@ Source: https://jobs.smartrecruiters.com/InPost/744000115650127-senior-java-engi
 
 ---
 
-## Kafka
+## P1 — Kafka
 
 - [ ] Explain the consumer group model. What happens when a consumer crashes mid-processing?
 - [ ] What is exactly-once semantics in Kafka and when do you need it?
@@ -37,7 +46,7 @@ Source: https://jobs.smartrecruiters.com/InPost/744000115650127-senior-java-engi
 
 ---
 
-## JPA / Hibernate
+## P1 — JPA / Hibernate
 
 - [ ] What's the N+1 query problem and how do you fix it?
 - [ ] Explain `EAGER` vs `LAZY` loading trade-offs in a REST context.
@@ -48,7 +57,7 @@ Source: https://jobs.smartrecruiters.com/InPost/744000115650127-senior-java-engi
 
 ---
 
-## System Design
+## P1 — System Design
 
 - [ ] Design a payment processing system that handles 10k transactions/second with exactly-once guarantees.
 - [ ] How would you design an idempotent API for order creation? How do you prevent double-charging during network retries?
@@ -60,7 +69,69 @@ Source: https://jobs.smartrecruiters.com/InPost/744000115650127-senior-java-engi
 
 ---
 
-## Docker / Kubernetes / GCP
+## P2 — Concurrency (Deep Dive)
+
+- [ ] What is the difference between `synchronized`, `ReentrantLock`, and `StampedLock`? When would you choose each?
+- [ ] What does `volatile` guarantee and when is it not enough?
+- [ ] What are the pitfalls of `ThreadLocal`? How can it cause memory leaks in thread-pool environments?
+- [ ] How do you size a thread pool? What's the formula for CPU-bound vs I/O-bound workloads?
+- [ ] What is the difference between `Executors.newFixedThreadPool` and `ForkJoinPool`?
+- [ ] How do you detect and prevent deadlocks in a Java application?
+- [ ] What are `CountDownLatch`, `CyclicBarrier`, and `Semaphore` — when do you use each?
+
+---
+
+## P2 — Distributed Systems Operations
+
+- [ ] What is the CAP theorem and what trade-offs does it force in practice?
+- [ ] What is eventual consistency and how do you reason about it in a payment flow?
+- [ ] How do you handle partial failures in a chain of microservice calls?
+- [ ] What is the Two Generals Problem and why does it matter for distributed commits?
+- [ ] How do you implement idempotency keys to safely retry failed operations?
+- [ ] When do you use a distributed lock (Redis/Redlock) vs database-level optimistic locking? What are the failure modes of each?
+- [ ] How do you achieve consensus across distributed nodes? (Raft, Paxos — conceptual level)
+- [ ] What is a split-brain scenario and how do you prevent it?
+- [ ] How do you handle clock skew between distributed services? (logical clocks, vector clocks)
+- [ ] What's the difference between synchronous and asynchronous replication trade-offs?
+- [ ] How do you design for graceful degradation when a downstream service is unavailable?
+
+---
+
+## P2 — Resilience Patterns
+
+- [ ] How do you implement retry with exponential backoff? Why does adding jitter matter?
+- [ ] What is the difference between a timeout and a deadline? Why is deadline propagation important across service chains?
+- [ ] What is the Bulkhead pattern? When would you use thread-pool isolation vs semaphore isolation in Resilience4j?
+- [ ] How do you combine Circuit Breaker + Retry + Timeout in Resilience4j without creating unexpected interactions?
+- [ ] What is the difference between fail-fast and fail-silent strategies? When is each appropriate?
+
+---
+
+## P2 — DDD — Domain-Driven Design
+
+- [ ] What is the difference between an Entity, a Value Object, and an Aggregate?
+- [ ] What are the rules of an Aggregate Root? Why should you only reference aggregates by ID across boundaries?
+- [ ] What is the difference between a Domain Event and an Integration Event?
+- [ ] How do Bounded Contexts map to microservices?
+- [ ] What is an Anti-Corruption Layer and when do you need one?
+- [ ] How does the Repository pattern in DDD differ from a Spring Data JPA repository?
+- [ ] How would you model a payment transaction as a DDD aggregate?
+
+---
+
+## P2 — CQRS + Event Sourcing
+
+- [ ] What is CQRS and what problem does it solve?
+- [ ] How do you keep the read model in sync with the write model?
+- [ ] What is Event Sourcing? How does it differ from storing current state?
+- [ ] How do you rebuild a read model projection from an event stream?
+- [ ] What are the trade-offs of Event Sourcing — what makes it hard to operate?
+- [ ] How does Event Sourcing provide a natural audit trail for financial transactions?
+- [ ] How do CQRS and Event Sourcing work together with Kafka?
+
+---
+
+## P3 — Docker / Kubernetes / GCP
 
 - [ ] What's the difference between a `Deployment`, `StatefulSet`, and `DaemonSet`?
 - [ ] How do you configure liveness vs readiness probes and why does the distinction matter?
@@ -70,7 +141,7 @@ Source: https://jobs.smartrecruiters.com/InPost/744000115650127-senior-java-engi
 
 ---
 
-## Performance & Reliability
+## P3 — Performance & Reliability
 
 - [ ] How do you profile and diagnose a memory leak in a production JVM service?
 - [ ] How do you tune G1GC or ZGC to minimize Stop-the-World pauses in a latency-sensitive payment service?
@@ -80,28 +151,35 @@ Source: https://jobs.smartrecruiters.com/InPost/744000115650127-senior-java-engi
 
 ---
 
-## Immutability
+## P3 — Observability
 
-- [ ] What makes a class truly immutable in Java? List all the rules (final class, private final fields, no setters, deep copy in constructor, unmodifiable/copy in getters).
-- [ ] Why must a class be `final` to be truly immutable? What risk does subclassing introduce?
-- [ ] Why are immutable objects inherently thread-safe?
-- [ ] Why must objects used as `HashMap`/`HashSet` keys be immutable? What happens if their `hashCode()` changes?
-- [ ] How do you design an immutable class with mutable fields (e.g., `List`, `Date`)? (deep copy in constructor, unmodifiable wrapper in getter)
-- [ ] What's the difference between `final`, `effectively final`, and immutability?
-- [ ] What is failure atomicity and how does immutability guarantee it?
-- [ ] How does immutability improve security for sensitive data like payment amounts — what attack does it prevent?
-- [ ] Why can immutable objects be safely shared across layers without defensive copies?
-- [ ] What are Java Records? What do they give you for free and what must you still handle manually?
-- [ ] What are the trade-offs of immutability in high-throughput systems (object allocation pressure vs. GC optimization for short-lived objects)?
-- [ ] Why are immutable objects ideal for shared caches (Redis, local cache) in a multi-instance microservice?
-- [ ] How do you handle immutability in a distributed system — e.g., immutable events on Kafka, immutable DTOs across services?
-- [ ] How do you propagate state changes without mutating shared objects across service boundaries?
-- [ ] What role does immutability play in event sourcing and financial audit trails?
-- [ ] How does immutability relate to value objects in DDD?
+- [ ] How do you propagate a correlation ID across microservices for end-to-end tracing?
+- [ ] What is MDC (Mapped Diagnostic Context) and how do you use it with structured logging?
+- [ ] How do you expose custom business metrics with Micrometer and Prometheus?
+- [ ] What is the difference between a counter, gauge, histogram, and summary in Prometheus?
+- [ ] How would you trace a single payment request across 5 microservices end-to-end?
 
 ---
 
-## Design Patterns (GoF)
+## P3 — SOLID + Clean Architecture
+
+- [ ] Explain each SOLID principle with a concrete Java example.
+- [ ] What is the Dependency Inversion Principle and how does Spring enforce it?
+- [ ] What is Hexagonal Architecture (Ports & Adapters)? How do you map it to a Spring Boot service?
+- [ ] How do you separate domain logic from infrastructure concerns in a Spring Boot app?
+- [ ] What is the difference between anemic and rich domain models?
+
+---
+
+## P3 — Testing
+
+- [ ] How do you test Kafka consumers/producers without a running broker? (Testcontainers vs EmbeddedKafka)
+- [ ] What's the difference between `@SpringBootTest`, `@WebMvcTest`, and `@DataJpaTest`? When do you use each?
+- [ ] How do you test idempotency in an integration test?
+
+---
+
+## P4 — Design Patterns (GoF)
 
 Source: https://www.geeksforgeeks.org/system-design/gang-of-four-gof-design-patterns/
 
@@ -140,114 +218,7 @@ Source: https://www.geeksforgeeks.org/system-design/gang-of-four-gof-design-patt
 
 ---
 
-## Distributed Systems Operations
-
-- [ ] What is the CAP theorem and what trade-offs does it force in practice?
-- [ ] What is eventual consistency and how do you reason about it in a payment flow?
-- [ ] How do you handle partial failures in a chain of microservice calls?
-- [ ] What is the Two Generals Problem and why does it matter for distributed commits?
-- [ ] How do you implement idempotency keys to safely retry failed operations?
-- [ ] When do you use a distributed lock (Redis/Redlock) vs database-level optimistic locking? What are the failure modes of each?
-- [ ] How do you achieve consensus across distributed nodes? (Raft, Paxos — conceptual level)
-- [ ] What is a split-brain scenario and how do you prevent it?
-- [ ] How do you handle clock skew between distributed services? (logical clocks, vector clocks)
-- [ ] What's the difference between synchronous and asynchronous replication trade-offs?
-- [ ] How do you design for graceful degradation when a downstream service is unavailable?
-
----
-
-## SQL / NoSQL
-
-- [ ] When would you choose a NoSQL store over PostgreSQL in a microservices context?
-- [ ] How do you handle schema evolution in an event-sourced system?
-- [ ] What's your approach to database indexing strategy for high-read payment queries?
-
----
-
-## Testing
-
-- [ ] How do you test Kafka consumers/producers without a running broker? (Testcontainers vs EmbeddedKafka)
-- [ ] What's the difference between `@SpringBootTest`, `@WebMvcTest`, and `@DataJpaTest`? When do you use each?
-- [ ] How do you test idempotency in an integration test?
-
----
-
-## Payment / Security
-
-- [ ] How do you protect sensitive payment data in transit and at rest in a microservice architecture?
-- [ ] What is PCI DSS and what technical controls does it require? How does tokenization help achieve compliance without storing raw card data?
-- [ ] Compare AES (symmetric) vs RSA (asymmetric) encryption — when would you use each for securing payment payloads?
-- [ ] How would you implement audit logging that cannot be tampered with?
-
----
-
-## Concurrency (Deep Dive)
-
-- [ ] What is the difference between `synchronized`, `ReentrantLock`, and `StampedLock`? When would you choose each?
-- [ ] What does `volatile` guarantee and when is it not enough?
-- [ ] What are the pitfalls of `ThreadLocal`? How can it cause memory leaks in thread-pool environments?
-- [ ] How do you size a thread pool? What's the formula for CPU-bound vs I/O-bound workloads?
-- [ ] What is the difference between `Executors.newFixedThreadPool` and `ForkJoinPool`?
-- [ ] How do you detect and prevent deadlocks in a Java application?
-- [ ] What are `CountDownLatch`, `CyclicBarrier`, and `Semaphore` — when do you use each?
-
----
-
-## DDD — Domain-Driven Design
-
-- [ ] What is the difference between an Entity, a Value Object, and an Aggregate?
-- [ ] What are the rules of an Aggregate Root? Why should you only reference aggregates by ID across boundaries?
-- [ ] What is the difference between a Domain Event and an Integration Event?
-- [ ] How do Bounded Contexts map to microservices?
-- [ ] What is an Anti-Corruption Layer and when do you need one?
-- [ ] How does the Repository pattern in DDD differ from a Spring Data JPA repository?
-- [ ] How would you model a payment transaction as a DDD aggregate?
-
----
-
-## CQRS + Event Sourcing
-
-- [ ] What is CQRS and what problem does it solve?
-- [ ] How do you keep the read model in sync with the write model?
-- [ ] What is Event Sourcing? How does it differ from storing current state?
-- [ ] How do you rebuild a read model projection from an event stream?
-- [ ] What are the trade-offs of Event Sourcing — what makes it hard to operate?
-- [ ] How does Event Sourcing provide a natural audit trail for financial transactions?
-- [ ] How do CQRS and Event Sourcing work together with Kafka?
-
----
-
-## SOLID + Clean Architecture
-
-- [ ] Explain each SOLID principle with a concrete Java example.
-- [ ] What is the Dependency Inversion Principle and how does Spring enforce it?
-- [ ] What is Hexagonal Architecture (Ports & Adapters)? How do you map it to a Spring Boot service?
-- [ ] How do you separate domain logic from infrastructure concerns in a Spring Boot app?
-- [ ] What is the difference between anemic and rich domain models?
-
----
-
-## Observability
-
-- [ ] How do you propagate a correlation ID across microservices for end-to-end tracing?
-- [ ] What is MDC (Mapped Diagnostic Context) and how do you use it with structured logging?
-- [ ] How do you expose custom business metrics with Micrometer and Prometheus?
-- [ ] What is the difference between a counter, gauge, histogram, and summary in Prometheus?
-- [ ] How would you trace a single payment request across 5 microservices end-to-end?
-
----
-
-## Modern Java (17–21)
-
-- [ ] What are sealed classes and how do they improve exhaustive pattern matching?
-- [ ] How does pattern matching for `switch` (Java 21) change how you handle polymorphism?
-- [ ] What are the common misuses of `Optional`? How should it NOT be used?
-- [ ] What are the pitfalls of parallel streams? When should you avoid them?
-- [ ] What advanced `Collectors` are available in the Stream API? (groupingBy, teeing, etc.)
-
----
-
-## REST / API Design
+## P4 — REST / API Design
 
 - [ ] What is the Richardson Maturity Model? What does Level 3 (HATEOAS) add?
 - [ ] When would you choose gRPC over REST for internal microservice communication?
@@ -257,35 +228,55 @@ Source: https://www.geeksforgeeks.org/system-design/gang-of-four-gof-design-patt
 
 ---
 
-## Code Quality / Review
+## P4 — Payment / Security
 
-- [ ] How do you integrate SonarQube or SpotBugs into a CI pipeline? What metrics do you track?
-- [ ] What do you look for as a senior engineer when reviewing a pull request?
-- [ ] How do you enforce architecture rules (e.g., no domain layer importing infrastructure) in code?
-- [ ] What is the difference between code coverage and test quality?
-
----
-
-## Resilience Patterns
-
-- [ ] How do you implement retry with exponential backoff? Why does adding jitter matter?
-- [ ] What is the difference between a timeout and a deadline? Why is deadline propagation important across service chains?
-- [ ] What is the Bulkhead pattern? When would you use thread-pool isolation vs semaphore isolation in Resilience4j?
-- [ ] How do you combine Circuit Breaker + Retry + Timeout in Resilience4j without creating unexpected interactions?
-- [ ] What is the difference between fail-fast and fail-silent strategies? When is each appropriate?
+- [ ] How do you protect sensitive payment data in transit and at rest in a microservice architecture?
+- [ ] What is PCI DSS and what technical controls does it require? How does tokenization help achieve compliance without storing raw card data?
+- [ ] Compare AES (symmetric) vs RSA (asymmetric) encryption — when would you use each for securing payment payloads?
+- [ ] How would you implement audit logging that cannot be tampered with?
 
 ---
 
-## Multi-Tenancy
+## P4 — Modern Java (17–21)
 
-- [ ] What are the main multi-tenancy models: schema-per-tenant, database-per-tenant, shared schema with tenant ID?
-- [ ] How do you enforce tenant data isolation at the application level in a shared-schema Spring Boot service?
-- [ ] How do you handle tenant-specific configuration (e.g., different payment providers per country) in a microservice?
-- [ ] What are the risks of missing tenant context in a async/Kafka consumer thread?
+- [ ] What are sealed classes and how do they improve exhaustive pattern matching?
+- [ ] How does pattern matching for `switch` (Java 21) change how you handle polymorphism?
+- [ ] What are the common misuses of `Optional`? How should it NOT be used?
+- [ ] What are the pitfalls of parallel streams? When should you avoid them?
+- [ ] What advanced `Collectors` are available in the Stream API? (groupingBy, teeing, etc.)
 
 ---
 
-## Java Memory Model (Edge Cases)
+## P4 — SQL / NoSQL
+
+- [ ] When would you choose a NoSQL store over PostgreSQL in a microservices context?
+- [ ] How do you handle schema evolution in an event-sourced system?
+- [ ] What's your approach to database indexing strategy for high-read payment queries?
+
+---
+
+## P4 — Immutability
+
+- [ ] What makes a class truly immutable in Java? List all the rules (final class, private final fields, no setters, deep copy in constructor, unmodifiable/copy in getters).
+- [ ] Why must a class be `final` to be truly immutable? What risk does subclassing introduce?
+- [ ] Why are immutable objects inherently thread-safe?
+- [ ] Why must objects used as `HashMap`/`HashSet` keys be immutable? What happens if their `hashCode()` changes?
+- [ ] How do you design an immutable class with mutable fields (e.g., `List`, `Date`)? (deep copy in constructor, unmodifiable wrapper in getter)
+- [ ] What's the difference between `final`, `effectively final`, and immutability?
+- [ ] What is failure atomicity and how does immutability guarantee it?
+- [ ] How does immutability improve security for sensitive data like payment amounts — what attack does it prevent?
+- [ ] Why can immutable objects be safely shared across layers without defensive copies?
+- [ ] What are Java Records? What do they give you for free and what must you still handle manually?
+- [ ] What are the trade-offs of immutability in high-throughput systems (object allocation pressure vs. GC optimization for short-lived objects)?
+- [ ] Why are immutable objects ideal for shared caches (Redis, local cache) in a multi-instance microservice?
+- [ ] How do you handle immutability in a distributed system — e.g., immutable events on Kafka, immutable DTOs across services?
+- [ ] How do you propagate state changes without mutating shared objects across service boundaries?
+- [ ] What role does immutability play in event sourcing and financial audit trails?
+- [ ] How does immutability relate to value objects in DDD?
+
+---
+
+## P4 — Java Memory Model (Edge Cases)
 
 - [ ] What is safe publication? What are the four ways to safely publish an object to other threads?
 - [ ] Is double-checked locking safe in modern Java? What role does `volatile` play in it?
@@ -294,14 +285,32 @@ Source: https://www.geeksforgeeks.org/system-design/gang-of-four-gof-design-patt
 
 ---
 
-## AI Tooling
+## P4 — Multi-Tenancy
+
+- [ ] What are the main multi-tenancy models: schema-per-tenant, database-per-tenant, shared schema with tenant ID?
+- [ ] How do you enforce tenant data isolation at the application level in a shared-schema Spring Boot service?
+- [ ] How do you handle tenant-specific configuration (e.g., different payment providers per country) in a microservice?
+- [ ] What are the risks of missing tenant context in a async/Kafka consumer thread?
+
+---
+
+## P4 — Code Quality / Review
+
+- [ ] How do you integrate SonarQube or SpotBugs into a CI pipeline? What metrics do you track?
+- [ ] What do you look for as a senior engineer when reviewing a pull request?
+- [ ] How do you enforce architecture rules (e.g., no domain layer importing infrastructure) in code?
+- [ ] What is the difference between code coverage and test quality?
+
+---
+
+## P4 — AI Tooling
 
 - [ ] How do you use AI tools in your daily development workflow?
 - [ ] Have you integrated LLM APIs into any services?
 
 ---
 
-## Behavioral / Leadership
+## P4 — Behavioral / Leadership
 
 - [ ] Describe a time you prevented a production incident through code review or architectural feedback.
 - [ ] How do you approach onboarding a junior engineer to a complex codebase?
